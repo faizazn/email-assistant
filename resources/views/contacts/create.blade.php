@@ -1,49 +1,37 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row my-4">
-        <div class="col-md-6 mx-auto">
-            <div class="card">
-                <div class="card-header text-center bg-white">
-                    <h4 class="mt-2">
-                        Add new contact
-                    </h4>
+<div class="max-w-md mx-auto my-8">
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h4 class="text-lg font-semibold text-gray-800">Add new contact</h4>
+        </div>
+        <div class="px-6 py-6">
+            <form action="{{ route('contacts.store') }}" method="post" class="space-y-4">
+                @csrf
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name*</label>
+                    <input type="text" name="name" id="name"
+                        placeholder="Name*"
+                        class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 @error('name') border-red-500 @enderror">
+                    @error('name')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
-                <div class="card-body">
-                    <form action="{{ route('contacts.store') }}" method="post">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name*</label>
-                            <input type="text" name="name" id="name" 
-                                placeholder="Name*"
-                                class="form-control @error('name')
-                                    is-invalid
-                                @enderror">
-                            @error('name')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email*</label>
-                            <input type="email" name="email" id="email" 
-                                placeholder="Email*"
-                                class="form-control @error('email')
-                                    is-invalid
-                                @enderror">
-                            @error('email')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <button class="btn btn-primary">
-                            Submit
-                        </button>
-                    </form>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email*</label>
+                    <input type="email" name="email" id="email"
+                        placeholder="Email*"
+                        class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 @error('email') border-red-500 @enderror">
+                    @error('email')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
-            </div>
+                <button class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition">
+                    Submit
+                </button>
+            </form>
         </div>
     </div>
+</div>
 @endsection

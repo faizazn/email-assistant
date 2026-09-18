@@ -1,14 +1,12 @@
-<div class="row my-3">
-    <div class="col-md-6 mx-auto">
-        @session('success')
-           <div class="alert alert-success">
-              {{ session('success') }}
-           </div>
-        @endsession
-        @session('error')
-           <div class="alert alert-danger">
-              {{ session('error') }}
-           </div>
-        @endsession
-    </div>
+<div class="max-w-2xl mx-auto my-4">
+    @session('success')
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+            {{ session('success') }}
+        </div>
+    @endsession
+    @session('error')
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+            {{ session('error') }}
+        </div>
+    @endsession
 </div>

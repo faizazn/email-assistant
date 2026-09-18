@@ -1,36 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row my-4">
-        <div class="col-md-6 mx-auto">
-            <div class="card">
-                <div class="card-header text-center bg-white">
-                    <h4 class="mt-2">
-                        Add new prompt
-                    </h4>
+<div class="max-w-md mx-auto my-8">
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h4 class="text-lg font-semibold text-gray-800">Add new prompt</h4>
+        </div>
+        <div class="px-6 py-6">
+            <form action="{{ route('prompts.store') }}" method="post" class="space-y-4">
+                @csrf
+                <div>
+                    <label for="prompt" class="block text-sm font-medium text-gray-700 mb-1">Prompt*</label>
+                    <textarea rows="5" name="prompt" id="prompt"
+                        placeholder="Prompt*"
+                        class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 @error('prompt') border-red-500 @enderror"></textarea>
+                    @error('prompt')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
-                <div class="card-body">
-                    <form action="{{ route('prompts.store') }}" method="post">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="prompt" class="form-label">Prompt*</label>
-                            <textarea rows="5" name="prompt" id="prompt" 
-                                placeholder="Prompt*"
-                                class="form-control @error('prompt')
-                                    is-invalid
-                                @enderror"></textarea>
-                            @error('prompt')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <button class="btn btn-primary">
-                            Submit
-                        </button>
-                    </form>
-                </div>
-            </div>
+                <button class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition">
+                    Submit
+                </button>
+            </form>
         </div>
     </div>
+</div>
 @endsection
