@@ -29,4 +29,18 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function contacts()
+{
+    return $this->hasMany(Contact::class);
+}
+
+public function prompts()
+{
+    return $this->hasMany(Prompt::class);
+}
+
+public function sentEmails()
+{
+    return $this->hasMany(SentEmail::class);
+}
 }

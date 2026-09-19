@@ -12,12 +12,12 @@ class StoreContactRequest extends FormRequest
     }
 
     public function rules(): array
-    {
-        return [
-            'name'  => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', 'unique:contacts,email'],
-        ];
-    }
+{
+    return [
+        'name'  => ['required', 'string', 'max:255'],
+        'email' => ['required', 'email', 'max:255', 'unique:contacts,email,NULL,id,user_id,'.auth()->id()],
+    ];
+}
 
     public function messages(): array
     {

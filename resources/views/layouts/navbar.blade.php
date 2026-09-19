@@ -2,6 +2,7 @@
     <a href="{{ route('home') }}" class="text-gray-700 hover:text-indigo-600 font-medium">Home</a>
     <a href="{{ route('contacts.create') }}" class="text-gray-700 hover:text-indigo-600 font-medium">Add Contact</a>
     <a href="{{ route('prompts.create') }}" class="text-gray-700 hover:text-indigo-600 font-medium">Add Prompt</a>
+    <a href="{{ route('history.index') }}" class="text-gray-700 hover:text-indigo-600 font-medium">History</a>
 
     @auth
         <form method="POST" action="{{ route('logout') }}">

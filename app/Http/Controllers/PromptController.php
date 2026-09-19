@@ -14,13 +14,15 @@ class PromptController extends Controller
 
     public function store(StorePromptRequest $request)
     {
-        Prompt::create($request->validated());
+        auth()->user()->prompts()->create($request->validated());
 
         return to_route('home')->with('success', 'Prompt added successfully.');
     }
 
     public function choosePrompt(Prompt $prompt)
     {
+        abort_if($prompt->user_id !== auth()->id(), 403);
+
         session()->put('prompt_id', $prompt->id);
 
         return back();
