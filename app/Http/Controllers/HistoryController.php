@@ -8,6 +8,7 @@ class HistoryController extends Controller
     {
         $sentEmails = auth()->user()
             ->sentEmails()
+            ->whereIn('status', ['sent', 'failed'])
             ->with(['contact', 'prompt'])
             ->latest()
             ->paginate(10);

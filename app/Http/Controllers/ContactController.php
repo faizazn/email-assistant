@@ -27,9 +27,33 @@ class ContactController extends Controller
         return to_route('home')->with('success', 'Contact added successfully.');
     }
 
+    public function edit(Contact $contact)
+    {
+        abort_if($contact->user_id !== auth()->id(), 403);
+
+        return view('contacts.edit', compact('contact'));
+    }
+
+    public function update(StoreContactRequest $request, Contact $contact)
+    {
+        abort_if($contact->user_id !== auth()->id(), 403);
+
+        $contact->update($request->validated());
+
+        return to_route('home')->with('success', 'Contact updated successfully.');
+    }
+
+    public function destroy(Contact $contact)
+    {
+        abort_if($contact->user_id !== auth()->id(), 403);
+
+        $contact->delete();
+
+        return to_route('home')->with('success', 'Contact deleted successfully.');
+    }
+
     public function chooseContact(Contact $contact)
     {
-        // Sécurité: تأكد الـ contact ديال user الحالي
         abort_if($contact->user_id !== auth()->id(), 403);
 
         session()->put('contact_id', $contact->id);

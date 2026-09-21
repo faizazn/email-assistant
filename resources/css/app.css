@@ -1,9 +1,76 @@
-@import 'tailwindcss';
-
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
+@import "tailwindcss";
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    /* Fonts */
+    --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+    --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
+
+    /* Surfaces — layered darks */
+    --color-ink-950: #0a0a0b;
+    --color-ink-900: #111113;
+    --color-ink-850: #16161a;
+    --color-ink-800: #1c1c21;
+    --color-ink-700: #26262e;
+    --color-ink-600: #35353f;
+
+    /* Borders */
+    --color-line: #23232a;
+    --color-line-bright: #2e2e37;
+
+    /* Text */
+    --color-text: #f4f4f5;
+    --color-text-soft: #a1a1aa;
+    --color-text-muted: #71717a;
+
+    /* Accent — warm amber */
+    --color-amber-50: #fffbeb;
+    --color-amber-400: #fbbf24;
+    --color-amber-500: #f59e0b;
+    --color-amber-600: #d97706;
+
+    /* Semantic */
+    --color-emerald-soft: #064e3b;
+    --color-emerald: #34d399;
+    --color-rose-soft: #4c0519;
+    --color-rose: #fb7185;
+}
+
+@layer base {
+    body {
+        font-feature-settings: "cv11", "ss01";
+        font-variation-settings: "opsz" 32;
+    }
+    
+    ::selection {
+        background-color: #f59e0b;
+        color: #0a0a0b;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { 
+        background: #26262e; 
+        border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover { background: #35353f; }
+}
+
+@layer utilities {
+    .grain {
+        position: relative;
+    }
+    .grain::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+        opacity: 0.03;
+        pointer-events: none;
+        mix-blend-mode: overlay;
+    }
+    
+    .glow-amber {
+        box-shadow: 0 0 40px -10px rgba(245, 158, 11, 0.4);
+    }
 }
