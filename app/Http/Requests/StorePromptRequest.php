@@ -15,6 +15,7 @@ class StorePromptRequest extends FormRequest
     {
         return [
             'prompt' => ['required', 'string', 'min:5'],
+            'category_id' => ['nullable', 'exists:categories,id'],
         ];
     }
 }

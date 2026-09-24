@@ -3,33 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePromptRequest;
+use App\Models\Category;
 use App\Models\Prompt;
 
 class PromptController extends Controller
 {
     public function create()
     {
-        return view('prompts.create');
+        $categories = Category::all();
+
+        return view('prompts.create', compact('categories'));
     }
 
     public function store(StorePromptRequest $request)
     {
-        auth()->user()->prompts()->create($request->validated());
+        Prompt::create($request->validated());
 
         return to_route('home')->with('success', 'Prompt added successfully.');
     }
 
     public function edit(Prompt $prompt)
     {
-        abort_if($prompt->user_id !== auth()->id(), 403);
+        $categories = Category::all();
 
-        return view('prompts.edit', compact('prompt'));
+        return view('prompts.edit', compact('prompt', 'categories'));
     }
 
     public function update(StorePromptRequest $request, Prompt $prompt)
     {
-        abort_if($prompt->user_id !== auth()->id(), 403);
-
         $prompt->update($request->validated());
 
         return to_route('home')->with('success', 'Prompt updated successfully.');
@@ -37,8 +38,6 @@ class PromptController extends Controller
 
     public function destroy(Prompt $prompt)
     {
-        abort_if($prompt->user_id !== auth()->id(), 403);
-
         $prompt->delete();
 
         return to_route('home')->with('success', 'Prompt deleted successfully.');
@@ -46,8 +45,6 @@ class PromptController extends Controller
 
     public function choosePrompt(Prompt $prompt)
     {
-        abort_if($prompt->user_id !== auth()->id(), 403);
-
         session()->put('prompt_id', $prompt->id);
 
         return back();

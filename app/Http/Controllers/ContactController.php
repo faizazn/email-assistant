@@ -4,16 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreContactRequest;
 use App\Models\Contact;
+use App\Models\Prompt;
 
 class ContactController extends Controller
 {
     public function index()
-    {
-        $contacts = auth()->user()->contacts()->latest()->get();
-        $prompts  = auth()->user()->prompts()->latest()->get();
+{
+    $contacts = auth()->user()->contacts()->latest()->get();
 
-        return view('home', compact('contacts', 'prompts'));
+    $promptsQuery = Prompt::latest();
+
+    if (session('category_id')) {
+        $promptsQuery->where('category_id', session('category_id'));
     }
+
+    $prompts = $promptsQuery->get();
+
+    $activeCategory = session('category_id')
+        ? \App\Models\Category::find(session('category_id'))
+        : null;
+
+    return view('home', compact('contacts', 'prompts', 'activeCategory'));
+}
 
     public function create()
     {

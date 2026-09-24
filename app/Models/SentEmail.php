@@ -29,4 +29,5 @@ class SentEmail extends Model
     {
         return $this->belongsTo(Prompt::class);
     }
+    
 }

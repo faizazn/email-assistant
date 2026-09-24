@@ -28,9 +28,7 @@ class AgentController extends Controller
             ->where('user_id', auth()->id())
             ->firstOrFail();
 
-        $prompt = Prompt::where('id', $validated['prompt_id'])
-            ->where('user_id', auth()->id())
-            ->firstOrFail();
+        $prompt = Prompt::findOrFail($validated['prompt_id']);
 
         $filledPrompt = str_replace('{friend_name}', $contact->name, $prompt->prompt);
 

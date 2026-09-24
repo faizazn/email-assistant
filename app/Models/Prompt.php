@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-
 class Prompt extends Model
 {
-    protected $fillable = ['prompt', 'user_id'];
+    protected $fillable = ['prompt', 'category_id'];
 
-    public function user()
+
+    public function category()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function sentEmails()

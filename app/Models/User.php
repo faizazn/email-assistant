@@ -30,17 +30,19 @@ class User extends Authenticatable
         ];
     }
     public function contacts()
-{
-    return $this->hasMany(Contact::class);
-}
+    {
+        return $this->hasMany(Contact::class);
+    }
 
-public function prompts()
-{
-    return $this->hasMany(Prompt::class);
-}
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
 
-public function sentEmails()
-{
-    return $this->hasMany(SentEmail::class);
-}
+
+    public function sentEmails()
+    {
+        return $this->hasMany(SentEmail::class);
+    }
+
 }
